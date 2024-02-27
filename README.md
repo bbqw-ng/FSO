@@ -1,2 +1,2 @@
-# This is a collection of all FSO (FullStackOpen) guides / exercises
+# This is a collection of all my FSO (FullStackOpen) work.
 Starts at part 2!
