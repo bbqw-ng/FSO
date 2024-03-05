@@ -11,20 +11,30 @@ const App = () => {
     { name: 'Arto Hellas' }
   ]) 
   const [newName, setNewName] = useState('')
+  const [idTracker, setIdTracker] = useState(0)
 
   const addName = (event) => {
     event.preventDefault()
-    console.log("button clicked", event.target);
-    const newPerson = [
-      { name: newName }
-    ]
-    setPersons(persons.concat(newPerson))
-    setNewName('')
+    let nameSeen = false
+
+    persons.map((person) => {
+      if (person.name === newName) {
+        nameSeen = true
+        alert(`${newName} is already added to phonebook`)
+      }
+    }) 
+    
+    if (!nameSeen) {
+      const newPerson = [{ name: newName, id: idTracker}]
+      setPersons(persons.concat(newPerson))
+      setNewName('')
+      setIdTracker(idTracker + 1)
+    }
+
     console.log(persons)
   }
 
   const handleNameChange = (event) => {
-    console.log(event.target.value)
     setNewName(event.target.value)
   }
 
@@ -40,7 +50,7 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      {persons.map(person => <DisplayPerson key={0} name={person.name}/>)}
+      {persons.map(person => <DisplayPerson key={person.id} name={person.name}/>)}
     </div>
   )
 }
