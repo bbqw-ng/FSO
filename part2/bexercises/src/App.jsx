@@ -10,9 +10,8 @@ const DisplayPerson = ({ name, number }) => {
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas',
-      number: '040-1234567',
-      id: 0,}
+    { name: 'Arto Hellas', number: '040-1234567', id: 0},
+    { name: 'sugma dook', number: '69919919919-91991919196', id: 1},
   ]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
