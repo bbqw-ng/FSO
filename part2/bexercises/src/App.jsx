@@ -1,12 +1,11 @@
 import { useState } from 'react'
-import DisplayPerson from './component/DisplayPerson.jsx'
+import Filter from './component/Filter.jsx'
+import PersonForm from './component/PersonForm.jsx'
+import Person from './component/Person.jsx'
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456', id: 1 },
-    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
-    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
-    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
+    { name: 'Arto Hellas', number: '040-123456', id: 0 },
   ])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
@@ -25,7 +24,6 @@ const App = () => {
       setNewNumber('')
       //increments id by 1
       setIdTracker(idTracker + 1)
-      console.log(persons)
     }
   }
 
@@ -52,47 +50,15 @@ const App = () => {
     setNameFilter(event.target.value)
   }
   
-  const showFiltered = () => {
-    if (nameFilter === '') {
-      //return all persons.
-      return (
-        <>
-          {persons.map(person => <DisplayPerson key={person.id} name={person.name} number={person.number}/>)}
-        </>
-      )
-    } else {
-      //here we need to return the first thing back into the App's return.
-      return (
-        <>
-          {persons.map(person => { if (person.name.toLowerCase().includes(nameFilter.toLowerCase())) { 
-            //now we need to return the actual content.
-            return (
-              <DisplayPerson key={person.id} name={person.name} number={person.number}/>
-            )
-          }})}
-        </>
-      )
-    }
-  }
-      
-
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>filter shown with <input value={nameFilter} onChange={handleNameFilterChange}/></div>
+      <Filter filter={nameFilter} filterChange={handleNameFilterChange}/> 
       <h2>add a new</h2>
-      <form onSubmit={addName}>
-        <div>
-          <div>name: <input value={newName} onChange={handleNameChange}/></div>
-          <div>number: <input value={newNumber} onChange={handleNumberChange}/></div>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <PersonForm addName={addName} newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange}/>
       <h3>Numbers</h3>
-      {showFiltered()}
-    </div>
+      <Person persons={persons} filter={nameFilter}/>
+     </div>
   )
 
 }
