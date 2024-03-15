@@ -1,24 +1,9 @@
 import ReactDOM from 'react-dom/client'
-import React from 'react'
-import App from './App.jsx'
+import axios from 'axios'
+import App from './App'
 
-const notes = [
-  {
-    id: 1,
-    content: 'HTML is easy',
-    important: true,
-  }
-  ,
-  {
-    id: 2,
-    content: 'Browsers can only execute Javascript',
-    important: false,
-  }
-  ,
-  {
-    id: 3,
-    content: 'GET and POST are the most imporatnt methods of HTTP protocol',
-    important: true,
-  }
-]
-ReactDOM.createRoot(document.getElementById('root')).render( <App notes={notes}/>)
+axios.get("http://localhost:3001/notes").then(response => {
+  const notes = response.data
+  ReactDOM.createRoot(document.getElementById('root')).render(<App notes={notes} />)
+})
+
